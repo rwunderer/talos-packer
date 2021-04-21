@@ -12,14 +12,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-variable "base_image" {
+variable "image_version" {
   type    = string
-  default = "debian-10"
-}
-
-variable "hcloud_token" {
-  type    = string
-  default = ""
+  default = "0.10.0-beta.1"
 }
 
 variable "image_name" {
@@ -27,12 +22,16 @@ variable "image_name" {
   default = "talos"
 }
 
-variable "image_version" {
+
+variable "hcloud_token" {
   type    = string
-  default = "0.9.1"
+  default = ""
 }
 
-# could not parse template for following block: "template: hcl2_upgrade:11: function \"formatdate\" not defined"
+variable "base_image" {
+  type    = string
+  default = "debian-10"
+}
 
 source "hcloud" "main" {
   image       = var.base_image
@@ -40,10 +39,12 @@ source "hcloud" "main" {
   rescue      = "linux64"
   server_type = "cx11"
   snapshot_labels = {
-    Name    = "${var.image_name}-${var.image_version}"
+    Name    = var.image_name
+    Version = var.image_version
+    Date    = formatdate("YYYYMMDD", timestamp())
     Service = "Kubernetes"
   }
-  snapshot_name = "${var.image_name}-${var.image_version} ${formatdate("YYYYMMDD", timestamp())}"
+  snapshot_name = "${var.image_name}-${var.image_version}"
   ssh_username  = "root"
   token         = var.hcloud_token
 }
