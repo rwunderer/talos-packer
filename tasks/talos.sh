@@ -1,4 +1,5 @@
 #!/bin/bash
+set -exuo pipefail
 
 #   Copyright 2021 capriSys GmbH
 #
@@ -14,13 +15,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-# expect TALOS_VERSION from environment
-URL="https://github.com/talos-systems/talos/releases/download/v${TALOS_VERSION}/metal-amd64.tar.gz"
+# expect TALOS_VERSION and TALOS_BASE from environment
+URL="https://github.com/talos-systems/talos/releases/download/v${TALOS_VERSION}/${TALOS_BASE}-amd64.tar.gz"
 
 gdisk -l /dev/sda
 
-curl -fsSL -o metal-amd64.tar.gz "${URL}"
-tar xzf metal-amd64.tar.gz
+curl -fsSL -o talos-amd64.tar.gz "${URL}"
+tar xzf talos-amd64.tar.gz
 dd if=./disk.raw of=/dev/sda bs=4M
 
 gdisk -l /dev/sda

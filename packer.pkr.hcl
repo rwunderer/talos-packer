@@ -22,6 +22,10 @@ variable "image_name" {
   default = "talos"
 }
 
+variable "talos_base" {
+  type    = string
+  default = "openstack"
+}
 
 variable "hcloud_token" {
   type    = string
@@ -35,16 +39,17 @@ variable "base_image" {
 
 source "hcloud" "main" {
   image       = var.base_image
-  location    = "fsn1"
+  location    = "nbg1"
   rescue      = "linux64"
   server_type = "cx11"
   snapshot_labels = {
     Name    = var.image_name
     Version = var.image_version
     Date    = formatdate("YYYYMMDD", timestamp())
+    Base    = var.talos_base
     Service = "Kubernetes"
   }
-  snapshot_name = "${var.image_name}-${var.image_version}"
+  snapshot_name = "${var.image_name}-${var.image_version} ${formatdate("YYYYMMDD", timestamp())}"
   ssh_username  = "root"
   token         = var.hcloud_token
 }
@@ -53,7 +58,7 @@ build {
   sources = ["source.hcloud.main"]
 
   provisioner "shell" {
-    environment_vars = ["TALOS_VERSION=${var.image_version}"]
+    environment_vars = ["TALOS_VERSION=${var.image_version}", "TALOS_BASE=${var.talos_base}"]
     script           = "./tasks/talos.sh"
   }
 
