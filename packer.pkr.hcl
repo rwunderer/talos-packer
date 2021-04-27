@@ -14,7 +14,7 @@
 
 variable "image_version" {
   type    = string
-  default = "0.10.0-beta.1"
+  default = "0.10.0"
 }
 
 variable "image_name" {
@@ -39,7 +39,7 @@ variable "base_image" {
 
 source "hcloud" "main" {
   image       = var.base_image
-  location    = "nbg1"
+  location    = "hel1"
   rescue      = "linux64"
   server_type = "cx11"
   snapshot_labels = {
