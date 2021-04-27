@@ -24,4 +24,9 @@ curl -fsSL -o talos-amd64.tar.gz "${URL}"
 tar xzf talos-amd64.tar.gz
 dd if=./disk.raw of=/dev/sda bs=4M
 
+partprobe /dev/sda
+
+sfdisk --delete /dev/sda 5
+sfdisk --delete /dev/sda 6
+
 gdisk -l /dev/sda
