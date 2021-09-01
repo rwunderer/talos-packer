@@ -51,7 +51,6 @@ source "hcloud" "main" {
   }
   snapshot_name = "${var.image_name}-${var.image_version} ${formatdate("YYYYMMDD", timestamp())}"
   ssh_username  = "root"
-  token         = var.hcloud_token
 }
 
 build {

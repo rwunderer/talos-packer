@@ -1,9 +1,11 @@
+HCLOUD_CONTEXT := $(shell (hcloud context active))
+
 all: build
 
 build:
-	packer build --var-file=variables.pkrvars.hcl packer.pkr.hcl
+	HCLOUD_TOKEN="$$TOKEN_$(HCLOUD_CONTEXT)" packer build packer.pkr.hcl
 
 validate:
-	packer validate --var-file=variables.pkrvars.hcl packer.pkr.hcl
+	HCLOUD_TOKEN="$$TOKEN_$(HCLOUD_CONTEXT)" packer validate packer.pkr.hcl
 
 # vim: noexpandtab
