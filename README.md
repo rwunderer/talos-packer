@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/github/license/rwunderer/talos-packer.svg)](https://github.com/rwunderer/talos-packer/blob/main/LICENSE)
+
 # Packer template to build Talos image on Hetzner Cloud
 
 Builds snapshot on [Hetzner Cloud](https://cloud.hetzner.de) that can be used
@@ -10,16 +12,9 @@ as a base image to run a [Talos](https://talos.dev) based Kubernetes cluster.
 * [packer](https://packer.io)
 * GNU make (optional)
 
-### Variables file
+### Usage
 
-You will need an [API token](https://docs.hetzner.cloud/#authentication) for authenticating to the Hetzner API.
-
-Then create a file named `variables.pkrvars.hcl` with the following content (replace
-with your actual token):
-
-```
-hcloud_token = "LRK9DAWQ1ZAEFSrCNEEzLCUwhYX1U3g7wMg4dTlkkDC96fyDuyJ39nVbVjCKSDfj"
-```
+Set the environment variable `HCLOUD_TOKEN` to the [API token](https://docs.hetzner.cloud/#authentication) for authenticating to the Hetzner API.
 
 Run
 
