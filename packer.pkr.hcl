@@ -14,7 +14,7 @@
 
 variable "image_version" {
   type    = string
-  default = "0.12.0"
+  default = "0.13.0-alpha.1"
 }
 
 variable "image_name" {
@@ -24,7 +24,7 @@ variable "image_name" {
 
 variable "talos_base" {
   type    = string
-  default = "openstack"
+  default = "hcloud"
 }
 
 variable "hcloud_token" {

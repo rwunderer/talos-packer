@@ -15,14 +15,15 @@ set -exuo pipefail
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+IMG_EXT="raw.xz"
+
 # expect TALOS_VERSION and TALOS_BASE from environment
-URL="https://github.com/talos-systems/talos/releases/download/v${TALOS_VERSION}/${TALOS_BASE}-amd64.tar.gz"
+URL="https://github.com/talos-systems/talos/releases/download/v${TALOS_VERSION}/${TALOS_BASE}-amd64.${IMG_EXT}"
 
 gdisk -l /dev/sda
 
-curl -fsSL -o talos-amd64.tar.gz "${URL}"
-tar xzf talos-amd64.tar.gz
-dd if=./disk.raw of=/dev/sda bs=4M
+curl -fsSL -o talos-amd64.${IMG_EXT} "${URL}"
+xz -dc talos-amd64.${IMG_EXT} | dd of=/dev/sda bs=4M
 
 partprobe /dev/sda
 
