@@ -14,7 +14,7 @@
 
 variable "image_version" {
   type    = string
-  default = "0.14.0"
+  default = "1.1.1"
 }
 
 variable "image_name" {
@@ -34,7 +34,7 @@ variable "hcloud_token" {
 
 variable "base_image" {
   type    = string
-  default = "debian-10"
+  default = "debian-11"
 }
 
 source "hcloud" "main" {
