@@ -14,7 +14,7 @@
 
 variable "image_version" {
   type    = string
-  default = "1.1.1"
+  default = "1.1.2"
 }
 
 variable "image_name" {
